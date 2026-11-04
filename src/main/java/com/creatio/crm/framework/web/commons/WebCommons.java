@@ -35,7 +35,7 @@ import com.creatio.crm.framework.utilities.PropUtil;
 
 public class WebCommons {
 	public WebDriver driver=BasePage.getDriver();
-	Properties prop=PropUtil.getDataFromPropertiesFile("Config.properties");
+	Properties prop=PropUtil.readData("Config.properties");
 
 	//common method to launch the application and verify the title of the application
 

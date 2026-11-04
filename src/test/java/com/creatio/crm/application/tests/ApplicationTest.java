@@ -49,7 +49,7 @@ public class ApplicationTest extends BasePage {
 	@Test(priority=3)
 	public void enterUserNameandPasswordandLogin(String username,String password) {
 		loginPage.launchTheApplication();
-		Properties prop= PropUtil.getDataFromPropertiesFile("Config.properties");
+		Properties prop= PropUtil.readData("Config.properties");
 		String uName = prop.getProperty("APP_USERNAME");
 	    String pWord = prop.getProperty("APP_PASSWORD");
 		loginPage.enterUserNameandPassword(uName, pWord);
@@ -59,7 +59,7 @@ public class ApplicationTest extends BasePage {
 	@Test(priority=4)	
 	public void verifyHomePageHeaderisDisplayed() {
 		loginPage.launchTheApplication();
-		Properties prop= PropUtil.getDataFromPropertiesFile("Config.properties");
+		Properties prop= PropUtil.readData("Config.properties");
 		String uName = prop.getProperty("APP_USERNAME");
 	    String pWord = prop.getProperty("APP_PASSWORD");
 		loginPage.enterUserNameandPassword(uName, pWord);
@@ -70,7 +70,7 @@ public class ApplicationTest extends BasePage {
 	@Test(priority=5)
 	public void selectLocationDropDown() throws IOException {
 		loginPage.launchTheApplication();
-		Properties prop= PropUtil.getDataFromPropertiesFile("Config.properties");
+		Properties prop= PropUtil.readData("Config.properties");
 		String uName = prop.getProperty("APP_USERNAME");
 	    String pWord = prop.getProperty("APP_PASSWORD");
 		loginPage.enterUserNameandPassword(uName, pWord);
@@ -83,7 +83,7 @@ public class ApplicationTest extends BasePage {
 	@Test(priority=6)
 	public void selectNoOfRooms() throws IOException {
 		loginPage.launchTheApplication();
-		Properties prop= PropUtil.getDataFromPropertiesFile("Config.properties");
+		Properties prop= PropUtil.readData("Config.properties");
 		String uName = prop.getProperty("APP_USERNAME");
 	    String pWord = prop.getProperty("APP_PASSWORD");
 		loginPage.enterUserNameandPassword(uName, pWord);
@@ -98,7 +98,7 @@ public class ApplicationTest extends BasePage {
 	@Test(priority=7)
 	public void selectRoomType() throws IOException {
 		loginPage.launchTheApplication();
-		Properties prop= PropUtil.getDataFromPropertiesFile("Config.properties");
+		Properties prop= PropUtil.readData("Config.properties");
 		String uName = prop.getProperty("APP_USERNAME");
 	    String pWord = prop.getProperty("APP_PASSWORD");
 		loginPage.enterUserNameandPassword(uName, pWord);
@@ -115,7 +115,7 @@ public class ApplicationTest extends BasePage {
 	@Test(priority=8)
 	public void clickSearchSelect() throws IOException {
 		loginPage.launchTheApplication();
-		Properties prop= PropUtil.getDataFromPropertiesFile("Config.properties");
+		Properties prop= PropUtil.readData("Config.properties");
 		String uName = prop.getProperty("APP_USERNAME");
 	    String pWord = prop.getProperty("APP_PASSWORD");
 		loginPage.enterUserNameandPassword(uName, pWord);
@@ -133,7 +133,7 @@ public class ApplicationTest extends BasePage {
 	@Test(priority=9)
 	public void selectHotel() throws IOException {
 		loginPage.launchTheApplication();
-		Properties prop= PropUtil.getDataFromPropertiesFile("Config.properties");
+		Properties prop= PropUtil.readData("Config.properties");
 		String uName = prop.getProperty("APP_USERNAME");
 	    String pWord = prop.getProperty("APP_PASSWORD");
 		loginPage.enterUserNameandPassword(uName, pWord);

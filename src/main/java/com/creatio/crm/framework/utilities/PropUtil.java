@@ -1,25 +1,29 @@
 package com.creatio.crm.framework.utilities;
 
-import java.io.FileInputStream; 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.FileInputStream;
 import java.util.Properties;
 
 public class PropUtil {
 
-	public static Properties getDataFromPropertiesFile(String value) {
-		
-		Properties prop = new Properties();
-	
+	// Common method to read the data from properties file.
+	public static Properties readData(String fileName) {
+
+		// Initialize the Properties class.
+		Properties prop = new Properties(); // prop is null
+
 		try {
-			FileInputStream fis= new FileInputStream(System.getProperty("user.dir")+"\\Config\\"+value);
+
+			// Read the properties file by using FileInputStream class
+			FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "\\Config\\" + fileName);
+
+			// Load the properties into 'prop' variable
 			prop.load(fis);
-		} catch (IOException e) {
-			
-			e.printStackTrace();
+
+		} catch (Exception exp) {
+			exp.printStackTrace();
 		}
-		
+
 		return prop;
-		
 	}
+
 }

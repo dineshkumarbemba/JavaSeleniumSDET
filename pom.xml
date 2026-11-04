@@ -1,12 +1,10 @@
-
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com</groupId>
-	<artifactId>MavenProject</artifactId>
+	<artifactId>CreatioCRMTestNGFramework</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
 
 	<dependencies>
 
@@ -15,13 +13,6 @@
 			<groupId>org.apache.pdfbox</groupId>
 			<artifactId>pdfbox</artifactId>
 			<version>2.0.35</version>
-		</dependency>
-		
-		<!-- modern extentreports library supporting ExtentSparkReporter -->
-		<dependency>
-			<groupId>com.aventstack</groupId>
-			<artifactId>extentreports</artifactId>
-			<version>5.1.1</version>
 		</dependency>
 
 		<!-- poi for reading excel files-->
@@ -59,13 +50,20 @@
 			<version>7.11.0</version>
 		</dependency>
 
+		<!-- extentreports for generating reports -->
+		<dependency>
+			<groupId>com.aventstack</groupId>
+			<artifactId>extentreports</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
 		<pluginManagement>
 			<plugins>
 
-				<!--https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
+				<!--maven-compiler-plugin for specifiing java version-->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
@@ -76,7 +74,7 @@
 					</configuration>
 				</plugin>
 
-				<!--https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
+				<!--maven-surefire-plugin to run specific runner file-->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
@@ -92,7 +90,4 @@
 		</pluginManagement>
 	</build>
 
-	<modules>
-		<module>Module1</module>
-	</modules>
 </project>

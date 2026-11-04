@@ -1,73 +1,61 @@
-package com.creatio.crm.framework.base; // Make sure this package matches your file exactly
+package com.creatio.crm.framework.base;
 
 import java.util.Properties;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
-import org.testng.ITestContext;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+
+import com.creatio.crm.framework.reports.Reports;
 import com.creatio.crm.framework.utilities.PropUtil;
 
-public class BasePage {
-    
-    // ThreadLocal completely prevents the 'Session ID is null' error during execution
-    private static ThreadLocal<WebDriver> threadDriver = new ThreadLocal<>();
-    
-    protected Properties prop = PropUtil.getDataFromPropertiesFile("Config.properties");
 
-    // Common method to launch browser dynamically based on configuration selection
-    @BeforeMethod(alwaysRun = true)
-    public void setupBrowser(ITestContext context) {
-        String browserName = prop.getProperty("Browser");
-        WebDriver driver = null;
+public class BasePage extends Reports {
+	
+	
+	// This class will have all the common methods and configurations related to browser setup to begin the execution process.
+	
+	private static WebDriver driver;
+	Properties prop = PropUtil.readData("Config.properties");
+	
+	
+	// Common method to launch the browser window.
+	@BeforeMethod(alwaysRun = true)
+	public void setupBrowser() {
+		String browserName = prop.getProperty("BROWSER");
+		if (browserName.equalsIgnoreCase("chrome")) {
+			driver = new ChromeDriver();
+		} else if (browserName.equalsIgnoreCase("firefox")) {
+			driver = new FirefoxDriver();
+		} else if (browserName.equalsIgnoreCase("edge")) {
+			driver = new EdgeDriver();
+		} else {
+			Assert.fail("Browser not supported");
+		}
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+	}
+	
+	// Common method to close the browser sessions
+	@AfterMethod(alwaysRun = true)
+	public void tearDownBrowser() {
+		if (driver != null) {
+			driver.quit();
+		}
+	}
+	
+	// Common method to share the browser session details with all other classes.
+	public static WebDriver getDriver() {
+		return driver;
+	}
+	
+	// Common method to update the browser station details from other classes.
+	public static void setDriver(WebDriver driverRef) {
+		driver = driverRef;
+	}
 
-        if (browserName.equalsIgnoreCase("chrome")) {
-            System.setProperty("webdriver.chrome.silentOutput", "true");
-            driver = new ChromeDriver();
-        } 
-        else if (browserName.equalsIgnoreCase("edge")) {
-            driver = new EdgeDriver();    
-        } 
-        else {
-            Assert.fail("Please pass the right browser. Provided browser layout does not exist.");
-        }
-
-        driver.manage().window().maximize();
-        driver.manage().deleteAllCookies();
-        
-        // Save driver instance directly inside ThreadLocal storage
-        threadDriver.set(driver);
-
-        // Bind the current driver session to TestNG context so your Listeners can see it safely
-        String threadKey = "WebDriver_" + Thread.currentThread().getId();
-        context.setAttribute(threadKey, driver);
-        
-        // Auto-navigate to your target application url configuration step
-        String appUrl = prop.getProperty("Url");
-        if (appUrl != null) {
-            driver.get(appUrl);
-        }
-    }
-
-    // Common method to close browser session safely at completion stage
-    @AfterMethod(alwaysRun = true)
-    public void tearDown() {
-        WebDriver driver = threadDriver.get();
-        if (driver != null) {
-            driver.quit();
-        }
-        threadDriver.remove(); // Protects system resources from memory leakages
-    }
-
-    // Thread-safe replacement for your original getDriver method
-    public static WebDriver getDriver() {
-        return threadDriver.get();
-    }
-
-    // Thread-safe replacement for your original setDriver method
-    public static void setDriver(WebDriver driverref) {
-        threadDriver.set(driverref);
-    }
 }
