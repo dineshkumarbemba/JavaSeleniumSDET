@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite parallel="tests" name="Suite">
+<listeners>
+<listener class-name="testng.framework.concepts.TestListners"></listener>
+</listeners>
+<parameter name="BROWSER" value="chrome"></parameter>
+<parameter name="APP_URL" value="adactinhotel"></parameter>
+  <test thread-count="5" parallel="tests" name="Test1">
+  <parameter name="BROWSER_NAME" value="chrome"></parameter>
+    <classes>
+      <class name="testng.framework.concepts.AllConceptsTestNG">
+      <methods>
+      <include name="testCase1"></include>
+      </methods>
+      </class>
+    </classes>
+     </test> <!-- Test -->
+     <test thread-count="5" parallel="tests" name="Test2">
+     <parameter name="BROWSER_NAME" value="edge"></parameter>
+    <classes>
+      <class name="testng.framework.concepts.AllConceptsTestNG">
+      <methods>
+      <include name="testCase2"></include>
+      </methods>
+      </class>
+    </classes>
+     </test> <!-- Test -->
+     <test thread-count="5" parallel="tests" name="Test3">
+     <parameter name="BROWSER_NAME" value="gecko"></parameter>
+    <classes>
+      <class name="testng.framework.concepts.AllConceptsTestNG">
+      <methods>
+      <include name="testCase3"></include>
+      </methods>
+      </class>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
