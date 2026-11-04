@@ -1,44 +1,53 @@
 package com.creatio.crm.framework.reports;
 
-import org.testng.annotations.BeforeSuite;
-
+import org.testng.annotations.BeforeSuite; 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter; // Upgraded to modern 5.x Spark Reporter
 
 public class Reports {
 	
-	// This class will contain all the common methods to generate the report by using TestNG and ExtentReports
-	public static ExtentHtmlReporter html;  //white paper
-	public static ExtentReports extent;  //printer
-	public static ExtentTest logger; //ink
+	// Central tracking variables aligned with version 5.1.1
+	public static ExtentSparkReporter spark; // The report file layout configuration
+	public static ExtentReports extent;      // The engine that prints the logs
+	public static ExtentTest logger;          // The step logger for the active test
 	
-	// Method to setup the report
+	// Method to setup the report infrastructure at suite level
 	@BeforeSuite(alwaysRun = true)
 	public static void setupReport() {
-		html = new ExtentHtmlReporter(System.getProperty("user.dir") + "\\Reports\\AutomationTestReport.html");
+		String reportLocation = System.getProperty("user.dir") + "\\Reports\\AutomationTestReport.html";
+		spark = new ExtentSparkReporter(reportLocation);
 		extent = new ExtentReports();
-		extent.attachReporter(html);
+		extent.attachReporter(spark);
+		
+		// Optional metadata configuration for your execution dashboard
+		extent.setSystemInfo("Environment", "QA Application Server");
+		extent.setSystemInfo("Framework Stack", "Java / TestNG / ExtentReports 5.x");
 	}
 	
-	// Method to start the printing process.
+	// Method to start tracking steps for a specific test scenario execution case
 	public static void startReporting(String testName) {
 		logger = extent.createTest(testName);
 	}
 	
-	// Method to end the printing process
+	// Method to write all logged execution states down onto your disk report file
 	public static void endReport() {
-		extent.flush();
+		if (extent != null) {
+			extent.flush();
+		}
 	}	
 	
-	// Method to Attach screenshot within the report.
+	// Method to attach captured browser window states cleanly inside test failure steps
 	public static void attachScreenshot(String screenshotPath) {
 		try {
-			logger.addScreenCaptureFromPath(screenshotPath);
+			if (logger != null) {
+				logger.addScreenCaptureFromPath(screenshotPath);
+			} else {
+				System.err.println("[REPORTS ERROR] Cannot attach screenshot. Logger mapping context is empty.");
+			}
 		} catch (Exception e) {
+			System.err.println("[REPORTS COMPONENT EXCEPTION] Failed processing attachment logic: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
-
-
 }

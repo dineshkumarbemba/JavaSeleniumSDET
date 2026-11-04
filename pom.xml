@@ -1,3 +1,4 @@
+
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -7,7 +8,6 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-
 	<dependencies>
 
 		<!-- pdfbox to read data from PDF file-->
@@ -16,11 +16,13 @@
 			<artifactId>pdfbox</artifactId>
 			<version>2.0.35</version>
 		</dependency>
+		
+		<!-- modern extentreports library supporting ExtentSparkReporter -->
 		<dependency>
-    <groupId>com.aventstack</groupId>
-    <artifactId>extentreports</artifactId>
-    <version>5.1.1</version>
-</dependency>
+			<groupId>com.aventstack</groupId>
+			<artifactId>extentreports</artifactId>
+			<version>5.1.1</version>
+		</dependency>
 
 		<!-- poi for reading excel files-->
 		<dependency>
@@ -57,14 +59,6 @@
 			<version>7.11.0</version>
 		</dependency>
 
-		<!-- extentreports for generating reports -->
-		<dependency>
-			<groupId>com.aventstack</groupId>
-			<artifactId>extentreports</artifactId>
-			<version>3.0.0</version>
-		</dependency>
-
-
 	</dependencies>
 
 	<build>
@@ -89,7 +83,7 @@
 					<version>3.5.4</version>
 					<configuration>
 						<suiteXmlFiles>
-						<suiteXmlFile>TestRunner/${TestSuite}</suiteXmlFile>
+							<suiteXmlFile>TestRunner/${TestSuite}</suiteXmlFile>
 						</suiteXmlFiles>
 					</configuration>
 				</plugin>
@@ -97,7 +91,6 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-
 
 	<modules>
 		<module>Module1</module>
